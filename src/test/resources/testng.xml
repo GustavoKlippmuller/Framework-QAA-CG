@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite Pruebas en Chrome" >
+    <test name="Pruebas en Chrome Headless">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="headless" value="si"/>
+        <classes>
+            <class name="tests.UserTest"/>
+        </classes>
+    </test>
+</suite>
