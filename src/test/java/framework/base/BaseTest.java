@@ -24,12 +24,14 @@ public abstract class BaseTest {
     public void setup(String browser, @Optional String environment, @Optional String language, String headless) {
         this.browser = browser;
         this.language = language;
-        driver = WebDriverFactory.getWebDriver(browser, headless);
         ReportManager.setupReport();
     }
 
     @BeforeClass
-    public void setupClass() {
+    @Parameters({"browser", "environment", "language", "headless"})
+    public void setupClass(String browser, @Optional String environment, @Optional String language, String headless) {
+        driver = WebDriverFactory.getWebDriver(browser, headless);
+        driver.get("http://127.0.0.1:5500/index.html");
         report = ReportManager.createTestReport(this.getClass().getSimpleName(), getDescription());
     }
 
@@ -41,6 +43,11 @@ public abstract class BaseTest {
     @AfterTest
     public void tearDown() {
         ReportManager.flushTestReport();
+    }
+
+    @AfterClass
+    protected void teardownDriver() {
+        driver.quit();
     }
 
     protected String getDescription() {

@@ -2,9 +2,11 @@
 <suite name="Suite Pruebas en Chrome" >
     <test name="Pruebas en Chrome Headless">
         <parameter name="browser" value="chrome"/>
-        <parameter name="headless" value="si"/>
+        <parameter name="headless" value="no"/>
         <classes>
-            <class name="tests.UserTest"/>
+            <!--class name="tests.UserTest"/-->
+            <class name="tests.BasePageTest"/>
+            <class name="tests.AcercaDeTest"/>
         </classes>
     </test>
 </suite>
