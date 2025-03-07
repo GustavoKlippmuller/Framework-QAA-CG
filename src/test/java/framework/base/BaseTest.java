@@ -31,7 +31,7 @@ public abstract class BaseTest {
     @Parameters({"browser", "environment", "language", "headless"})
     public void setupClass(String browser, @Optional String environment, @Optional String language, String headless) {
         driver = WebDriverFactory.getWebDriver(browser, headless);
-        driver.get("http://127.0.0.1:5500/index.html");
+        driver.get("https://www.kapa8technologies.com/login.html");
         report = ReportManager.createTestReport(this.getClass().getSimpleName(), getDescription());
     }
 
@@ -66,5 +66,11 @@ public abstract class BaseTest {
 
     protected ExtentTest getNode() {
         return node;
+    }
+
+    protected void waitExplicitFiveSeconds() {
+        try {
+            Thread.sleep(3000);
+        } catch (Exception ignored) {}
     }
 }

@@ -22,6 +22,7 @@ public class WebDriverFactory {
                     coptions.addArguments("--window-size=1920,1080");
                 }
                 driver = new ChromeDriver(coptions);
+                driver.manage().window().maximize();
                 break;
             case "edge":
                 EdgeOptions eoptions = new EdgeOptions();

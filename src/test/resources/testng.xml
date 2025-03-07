@@ -4,9 +4,11 @@
         <parameter name="browser" value="chrome"/>
         <parameter name="headless" value="no"/>
         <classes>
-            <!--class name="tests.UserTest"/-->
+            <!--class name="tests.UserTest"/>
             <class name="tests.BasePageTest"/>
             <class name="tests.AcercaDeTest"/>
+            <class name="tests.AlertTest"/-->
+            <class name="tests.LoginTest"/>
         </classes>
     </test>
 </suite>
