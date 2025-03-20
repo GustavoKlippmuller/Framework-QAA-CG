@@ -31,7 +31,7 @@ public abstract class BaseTest {
     @Parameters({"browser", "environment", "language", "headless"})
     public void setupClass(String browser, @Optional String environment, @Optional String language, String headless) {
         driver = WebDriverFactory.getWebDriver(browser, headless);
-        driver.get("https://www.kapa8technologies.com/login.html");
+        //driver.get("https://www.kapa8technologies.com/login.html");
         report = ReportManager.createTestReport(this.getClass().getSimpleName(), getDescription());
     }
 

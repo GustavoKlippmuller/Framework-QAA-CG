@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Atributos y Propiedades</title>
+    <style>
+        div {
+            display: block;
+        }
+        input[type="range"] {
+            width: 300px;
+            accent-color: #007bff; /* Color del control */
+        }
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="color"] {
+            border: none;
+            width: 50px;
+            height: 30px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider::before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(26px);
+        }
+        input[list] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            margin: 15% auto;
+            width: 30%;
+            border-radius: 10px;
+        }
+
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+    <body>
+        <div>
+            <label for="slider">Selecciona un valor:</label>
+            <input type="range" id="slider" min="0" max="100" value="50" oninput="sliderValue.textContent=this.value">
+            <span id="sliderValue">50</span>
+        </div>
+        <div>
+            <label for="date-picker">Selecciona una fecha:</label>
+            <input type="date" id="date-picker">
+        </div>
+        <div>
+            <label for="color-picker">Selecciona un color:</label>
+            <input type="color" id="color-picker" value="#ff5733">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox" id="toggle-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div>
+            <label for="combo-box">Elige una opción:</label>
+            <input list="opciones" id="combo-box">
+            <datalist id="opciones">
+                <option value="Opción 1"></option>
+                <option value="Opción 2"></option>
+                <option value="Opción 3"></option>
+            </datalist>
+        </div>
+        <!-- Place the first <script> tag in your HTML's <head> -->
+        <script src="https://cdn.tiny.cloud/1/56jid50ag424su03g64j4wab0xeosv8x2vca3hc6w54z9uax/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: [
+                    // Core editing features
+                    'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                    // Your account includes a free trial of TinyMCE premium features
+                    // Try the most popular premium features until Mar 28, 2025:
+                    'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+                ],
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    { value: 'First.Name', title: 'First Name' },
+                    { value: 'Email', title: 'Email' },
+                ],
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+            });
+        </script>
+        <script>
+            function openModal() {
+                document.getElementById("modal").style.display = "block";
+            }
+            function closeModal() {
+                document.getElementById("modal").style.display = "none";
+            }
+        </script>
+        <textarea>
+          Welcome to TinyMCE!
+        </textarea>
+        <button id="btnModal" onclick="openModal()">Abrir Modal</button>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>Esto es un modal.</p>
+            </div>
+        </div>
+    </body>
+</html>
