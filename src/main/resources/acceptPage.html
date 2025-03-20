@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir CV - Portal de Empleo</title>
+</head>
+<body style="background-color: #bfab3e">
+    <h2>Sube tu Currículum</h2>
+    <form id="myForm" action="/upload"
+          autocomplete="on"
+          method="POST"
+          enctype="multipart/form-data"
+          accept="application/pdf, application/msword">
+        <label for="cv">Selecciona tu CV (PDF o Word):</label>
+        <input
+                type="file"
+                id="cv"
+                name="cv"
+                accept=".pdf,.doc,.docx"
+                required>
+        <br><br>
+        <label for="firstname">Nombre Completo:</label>
+        <input
+                type="text"
+                id="firstname"
+                autocomplete="family-name"
+                data-test="firstname"
+                placeholder="Nombre completo"
+                required
+                autofocus>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" list="apellidos" maxlength="50" required>
+        <input type="text" id="color" name="color" value="Dato obligatorio" title="Dato de muestra obligatorio" readonly>
+        <!-- Lista de sugerencias -->
+        <datalist id="apellidos">
+            <option value="Gómez">
+            <option value="Pérez">
+            <option value="Fernández">
+            <option value="Rodríguez">
+            <option value="López">
+        </datalist>
+        <label class="error" hidden style="color: red;">Este campo es obligatorio</label>
+        <br><br>
+        <label for="fuel">Fuel level:</label>
+        <meter id="fuel" min="0" max="100" low="33" high="66" optimum="80" value="25">
+            at 50/100
+        </meter>
+        <br><br>
+        <label for="firstname" id="label-tac" style="color: #03156c">Terms & Conditions: <input id="tac" class="terms" type="checkbox" checked></label>
+        <br><br>
+        <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+            <tr>
+                <th id="one" style="border: 2px #000000 solid; padding: 8px; text-align: center;">One</th>
+                <th id="two" style="border: 2px #000000 solid; padding: 8px; text-align: center;">Two</th>
+                <th id="three" style="border: 2px #000000 solid; padding: 8px; text-align: center;">Thres</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td headers="one" style="border: 2px #000000 solid; padding: 8px; text-align: center;">1x1</td>
+                <td headers="two" style="border: 2px #000000 solid; padding: 8px; text-align: center;">1x2</td>
+                <td headers="three" style="border: 2px #000000 solid; padding: 8px; text-align: center;">1x3</td>
+            </tr>
+            <tr>
+                <td headers="one" style="border: 2px #000000 solid; padding: 8px; text-align: center;">2x1</td>
+                <td headers="two" style="border: 2px #000000 solid; padding: 8px; text-align: center;">2x2</td>
+                <td headers="three" style="border: 2px #000000 solid; padding: 8px; text-align: center;">2x3</td>
+            </tr>
+            <tr>
+                <td headers="one" style="border: 2px #000000 solid; padding: 8px; text-align: center;">3x1</td>
+                <td headers="two" style="border: 2px #000000 solid; padding: 8px; text-align: center;">3x2</td>
+                <td headers="three" style="border: 2px #000000 solid; padding: 8px; text-align: center;">3x3</td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <label for="type">Tipo de Documento
+            <select id="type">
+                <option selected disabled>--Seleccionar--</option>
+                <option value="dni">Documento Nacional de Identidad</option>
+                <option value="lc">Libreta Civica</option>
+                <option value="le">Libreta de Enrolamiento</option>
+                <option value="ci">Cedula de Identidad</option>
+                <option value="pas">Pasaporte</option>
+            </select>
+        </label>
+        <br><br>
+        <label for="type">Comidas
+            <select id="food" multiple>
+                <option value="pollo">Pollo</option>
+                <option value="pescado">Pescado</option>
+                <option value="carne">Carne Roja</option>
+                <option value="cerdo">Cerdo</option>
+            </select>
+        </label>
+        <br><br>
+        <a id="thisIsAnId" href="getText.html">Este es un link</a>
+        <br><br>
+        <button type="submit" form="myForm" style="height: 50px; width: 200px;">Enviar</button>
+    </form>
+    <img id="imagen" src="getText.html">
+
+    <script>
+        document.getElementById("cv").addEventListener("change", function() {
+            const file = this.files[0];
+            if (file) {
+                const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+                if (!allowedTypes.includes(file.type)) {
+                    alert("Formato no permitido. Solo se aceptan archivos PDF o Word.");
+                    this.value = "";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

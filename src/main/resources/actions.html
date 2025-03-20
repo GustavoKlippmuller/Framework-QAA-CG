@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Provincias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .list {
+            width: 200px;
+            min-height: 300px;
+            border: 2px dashed #333;
+            padding: 10px;
+        }
+        .item {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            cursor: grab;
+        }
+        select {
+            margin-top: 20px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Selecciona tus provincias</h2>
+<div class="container">
+    <div id="lista-origen" class="list">
+        <div class="item" draggable="true">Ciudad Autonoma de Buenos Aires</div>
+        <div class="item" draggable="true">Buenos Aires</div>
+        <div class="item" draggable="true">Catamarca</div>
+        <div class="item" draggable="true">Chaco</div>
+        <div class="item" draggable="true">Chubut</div>
+        <div class="item" draggable="true">Córdoba</div>
+        <div class="item" draggable="true">Corrientes</div>
+        <div class="item" draggable="true">Salta</div>
+        <div class="item" draggable="true">San Juan</div>
+        <div class="item" draggable="true">Santa Cruz</div>
+        <div class="item" draggable="true">Santa Fe</div>
+        <div class="item" draggable="true">Santiago del Estero</div>
+        <div class="item" draggable="true">Tierra del Fuego</div>
+        <div class="item" draggable="true">Tucuman</div>
+    </div>
+    <div id="lista-destino" class="list"></div>
+</div>
+<button onclick="guardarSeleccion()">Enviar</button>
+<br>
+<select id="provincias-seleccionadas">
+    <option selected disabled>--Seleccionar--</option>
+</select>
+
+<script>
+    const listaOrigen = document.getElementById('lista-origen');
+    const listaDestino = document.getElementById('lista-destino');
+
+    document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text', e.target.innerText);
+            e.dataTransfer.setData('id', e.target.id);
+        });
+    });
+
+    [listaDestino].forEach(lista => {
+        lista.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+        lista.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const draggedItem = [...listaOrigen.children].find(item => item.innerText === data);
+
+            if (draggedItem) {
+                draggedItem.remove();
+                const newItem = document.createElement('div');
+                newItem.classList.add('item');
+                newItem.draggable = true;
+                newItem.innerText = data;
+                lista.appendChild(newItem);
+                newItem.addEventListener('dragstart', (ev) => {
+                    ev.dataTransfer.setData('text', ev.target.innerText);
+                });
+            }
+        });
+    });
+
+    function guardarSeleccion() {
+        const seleccionadas = document.querySelectorAll('#lista-destino .item');
+        const dropdown = document.getElementById('provincias-seleccionadas');
+        dropdown.innerHTML = '';
+        seleccionadas.forEach(item => {
+            let option = document.createElement('option');
+            option.value = item.innerText;
+            option.innerText = item.innerText;
+            dropdown.appendChild(option);
+        });
+    }
+</script>
+</body>
+</html>
